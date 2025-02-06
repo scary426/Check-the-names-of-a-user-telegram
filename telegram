@@ -1,0 +1,17 @@
+from telethon.sync import TelegramClient
+from telethon.errors.rpcerrorlist import UsernameNotOccupiedError, UsernameInvalidError
+import asyncio,random
+api_id = ""  
+api_hash = ""  
+async def check(username):
+    async with TelegramClient('session_name', api_id, api_hash) as client:
+        try:
+            await client.get_entity(username)
+            return f"The username @{username} is already taken."
+        except UsernameNotOccupiedError:
+            return f"The username @{username} is available."
+        except UsernameInvalidError:
+            return f"The username @{username} is invalid." 
+username='useranme'#Here is the variable on which the examination is made
+result = asyncio.run(check(username))
+print(result)
